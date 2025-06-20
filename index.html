@@ -28,12 +28,28 @@
       align-items: center;
       flex-direction: column;
       animation: fadeIn 1s ease-in;
+      overflow: hidden;
+    }
+
+    .intro-pokeballs img {
+      position: absolute;
+      width: 80px;
+      border-radius: 50%;
+      opacity: 0.85;
+      animation: floatBubble 6s infinite ease-in-out;
+    }
+
+    @keyframes floatBubble {
+      0% { transform: translateY(0px); }
+      50% { transform: translateY(-20px); }
+      100% { transform: translateY(0px); }
     }
 
     #intro h1 {
       font-size: 1rem;
       text-shadow: 2px 2px black;
       margin-bottom: 2rem;
+      z-index: 2;
     }
 
     #start-btn {
@@ -45,6 +61,7 @@
       border-radius: 25px;
       cursor: pointer;
       transition: all 0.3s ease;
+      z-index: 2;
     }
 
     #start-btn:hover {
@@ -61,7 +78,6 @@
       }
     }
 
-    /* ========== MAIN PAGE ========== */
     header {
       background-color: #ff0000;
       color: white;
@@ -126,7 +142,6 @@
       50% { transform: translateY(-8px); }
     }
 
-    /* BUBBLES */
     .bubbles {
       position: fixed;
       top: 0;
@@ -162,6 +177,13 @@
 
 <!-- INTRO SCREEN -->
 <div id="intro">
+  <div class="intro-pokeballs">
+    <img src="https://assets.pokemon.com/assets/cms2/img/pokedex/full/025.png" style="top: 10%; left: 15%;">
+    <img src="https://assets.pokemon.com/assets/cms2/img/pokedex/full/039.png" style="top: 50%; left: 80%;">
+    <img src="https://assets.pokemon.com/assets/cms2/img/pokedex/full/129.png" style="top: 30%; left: 60%;">
+    <img src="https://assets.pokemon.com/assets/cms2/img/pokedex/full/004.png" style="top: 70%; left: 25%;">
+    <img src="https://assets.pokemon.com/assets/cms2/img/pokedex/full/393.png" style="top: 20%; left: 70%;">
+  </div>
   <h1>🎮 Bienvenue Dresseur !</h1>
   <p>Appuie sur START pour révéler le top !</p>
   <br>
@@ -177,7 +199,6 @@
 </header>
 
 <div class="container" id="content">
-  <!-- Tu peux ajouter/modifier les descriptions comme tu veux -->
   <div class="pokemon"><div class="rank">#10 - Absol</div>
     <img src="https://assets.pokemon.com/assets/cms2/img/pokedex/full/359.png" alt="Absol">
     <p>Absol, mystérieux et noble, possède un style ténébreux qui fait frissonner.</p>
@@ -225,7 +246,7 @@
 </footer>
 
 <script>
-  // Génération des bulles
+  // Génération des bulles animées
   const bubbleContainer = document.querySelector('.bubbles');
   for (let i = 0; i < 20; i++) {
     let bubble = document.createElement('div');
