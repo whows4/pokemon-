@@ -31,12 +31,23 @@
       overflow: hidden;
     }
 
-    .intro-pokeballs img {
+    .intro-pokeballs {
       position: absolute;
-      width: 80px;
+      width: 100vw;
+      height: 100vh;
+      top: 0;
+      left: 0;
+      pointer-events: none;
+      z-index: 1;
+    }
+
+    .intro-pokeball {
+      position: absolute;
+      width: 70px;
       border-radius: 50%;
       opacity: 0.85;
       animation: floatBubble 6s infinite ease-in-out;
+      pointer-events: none;
     }
 
     @keyframes floatBubble {
@@ -177,13 +188,7 @@
 
 <!-- INTRO SCREEN -->
 <div id="intro">
-  <div class="intro-pokeballs">
-    <img src="https://assets.pokemon.com/assets/cms2/img/pokedex/full/025.png" style="top: 10%; left: 15%;">
-    <img src="https://assets.pokemon.com/assets/cms2/img/pokedex/full/039.png" style="top: 50%; left: 80%;">
-    <img src="https://assets.pokemon.com/assets/cms2/img/pokedex/full/129.png" style="top: 30%; left: 60%;">
-    <img src="https://assets.pokemon.com/assets/cms2/img/pokedex/full/004.png" style="top: 70%; left: 25%;">
-    <img src="https://assets.pokemon.com/assets/cms2/img/pokedex/full/393.png" style="top: 20%; left: 70%;">
-  </div>
+  <div class="intro-pokeballs"></div>
   <h1>🎮 Bienvenue Dresseur !</h1>
   <p>Appuie sur START pour révéler le top !</p>
   <br>
@@ -221,7 +226,7 @@
   </div>
   <div class="pokemon"><div class="rank">#5 - Dracolosse</div>
     <img src="https://assets.pokemon.com/assets/cms2/img/pokedex/full/149.png" alt="Dracolosse">
-    <p>Un dragon costaud mais doux, aussi fort que sympa. On l’adore.</p>
+    <p>Un dragon costaud mais doux, aussi fort que sympa. On l'adore.</p>
   </div>
   <div class="pokemon"><div class="rank">#4 - Lucario</div>
     <img src="https://assets.pokemon.com/assets/cms2/img/pokedex/full/448.png" alt="Lucario">
@@ -233,11 +238,11 @@
   </div>
   <div class="pokemon"><div class="rank">#2 - Zoroark</div>
     <img src="https://assets.pokemon.com/assets/cms2/img/pokedex/full/571.png" alt="Zoroark">
-    <p>Maître de l’illusion, son style est aussi rapide que mystérieux.</p>
+    <p>Maître de l'illusion, son style est aussi rapide que mystérieux.</p>
   </div>
   <div class="pokemon"><div class="rank">#1 - Mewtwo</div>
     <img src="https://assets.pokemon.com/assets/cms2/img/pokedex/full/150.png" alt="Mewtwo">
-    <p>Le Pokémon ultime. Mewtwo, c’est la puissance, l’élégance et le mythe.</p>
+    <p>Le Pokémon ultime. Mewtwo, c'est la puissance, l'élégance et le mythe.</p>
   </div>
 </div>
 
@@ -269,6 +274,36 @@
       document.getElementById("content").style.display = "block";
     }, 1000);
   });
+
+  // Ajout de beaucoup de Pokémon à l'entrée avec animation de bulle
+  const pokemons = [
+    '025','039','129','004','393','001','007','143','196','197','448','094','149','248','384','571','658','059','359','006','150','151','245','382','383','380','381','130','212','282','448','475'
+  ];
+  const introPokeballs = document.querySelector('.intro-pokeballs');
+  pokemons.forEach((num, i) => {
+    const img = document.createElement('img');
+    img.src = `https://assets.pokemon.com/assets/cms2/img/pokedex/full/${num}.png`;
+    img.className = 'intro-pokeball';
+    img.style.top = Math.random() * 80 + '%';
+    img.style.left = Math.random() * 80 + '%';
+    img.style.animationDuration = (4 + Math.random() * 4) + 's';
+    img.style.animationDelay = (Math.random() * 4) + 's';
+    introPokeballs.appendChild(img);
+  });
+
+  // Changement de couleur de fond toutes les 2 ou 3 secondes
+  function randomColor() {
+    const letters = '0123456789ABCDEF';
+    let color = '#';
+    for (let i = 0; i < 6; i++) {
+      color += letters[Math.floor(Math.random() * 16)];
+    }
+    return color;
+  }
+  function setRandomBg() {
+    document.body.style.background = `linear-gradient(120deg, ${randomColor()}, ${randomColor()})`;
+  }
+  setInterval(setRandomBg, 2000 + Math.random() * 1000);
 </script>
 </body>
 </html>
